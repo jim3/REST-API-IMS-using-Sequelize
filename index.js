@@ -19,8 +19,6 @@ app.use("/", require("./routes/partsRoute"));
 
 // sync the database
 const sequelize = require("./db");
-const Parts = require("./models/Parts");
-const Accounts = require("./models/Accounts");
 sequelize.sync().then(() => {
     console.log("Synced db.");
 });

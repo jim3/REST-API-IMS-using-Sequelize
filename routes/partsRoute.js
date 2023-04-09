@@ -109,7 +109,7 @@ router.delete("/api/parts/:id", async (req, res) => {
             price,
         };
 
-        // (*) wait for update
+        // (*) await update
         const part = await db.Parts.findByPk(req.params.id);
 
         // delete part
@@ -160,4 +160,3 @@ router.get("/api/accounts", async (req, res) => {
 
 module.exports = router;
 
-// http://localhost:3000/api/accounts 0.
