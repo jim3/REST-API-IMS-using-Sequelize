@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Fastener Inventory App</title>
+        <link rel="stylesheet" type="text/css" href="/css/style.css" />
+    </head>
+    <body>
+        <div class="container">
+            <h1 style="text-align: center">Fastener Inventory</h1>
+            <form id="myform" action="/api/parts" method="POST">
+                <fieldset id="partname">
+                    <legend>Category</legend>
+                    <input type="radio" name="partname" value="screws" required />Screws<br />
+                    <input type="radio" name="partname" value="nuts" />Nuts<br />
+                    <input type="radio" name="partname" value="bolts" />Bolts<br />
+                    <input type="radio" name="partname" value="washers" />Washers<br />
+                </fieldset>
+
+                <fieldset id="screwtype">
+                    <legend>Screw Type</legend>
+                    <input type="radio" name="screwtype" value="wood" />Wood<br />
+                    <input type="radio" name="screwtype" value="sheetmetal" />Sheet Metal<br />
+                    <input type="radio" name="screwtype" value="machine" />Machine<br />
+                    <input type="radio" name="screwtype" value="drywall" />Drywall<br />
+                </fieldset>
+
+                <fieldset id="nuttype">
+                    <legend>Nut Type</legend>
+                    <input type="radio" name="nuttype" value="hex" />Hex<br />
+                    <input type="radio" name="nuttype" value="lock" />Lock<br />
+                    <input type="radio" name="nuttype" value="flange" />Flange<br />
+                    <input type="radio" name="nuttype" value="wing" />Wing<br />
+                </fieldset>
+
+                <fieldset id="bolttype">
+                    <legend>Bolt Type</legend>
+                    <input type="radio" name="bolttype" value="hex" />Hex<br />
+                    <input type="radio" name="bolttype" value="square" />Square<br />
+                    <input type="radio" name="bolttype" value="carriage" />Carriage<br />
+                    <input type="radio" name="bolttype" value="eye" />Eye<br />
+                </fieldset>
+
+                <fieldset id="washertype">
+                    <legend>Washer Type</legend>
+                    <input type="radio" name="washertype" value="plain" />Plain<br />
+                    <input type="radio" name="washertype" value="lock" />Lock<br />
+                    <input type="radio" name="washertype" value="tooth" />Tooth<br />
+                    <input type="radio" name="washertype" value="spring" />Spring<br />
+                </fieldset>
+
+                <fieldset>
+                    <legend>Quantity</legend>
+                    <input type="number" id="quantity" name="quantity" min="1" max="1000" />
+                </fieldset>
+
+                <fieldset>
+                    <legend>Price</legend>
+                    <input type="number" id="price" name="price" min="0.01" max="1000" step="0.01" />
+                </fieldset>
+                <input type="submit" value="Submit" />
+            </form>
+
+            <% if (typeof partName !=="undefined" ) { %>
+            <h2>Order Results:</h2>
+            <p>Part Name: <%= partName %></p>
+            <p>Part Type: <%= partType %></p>
+            <p>Quantity: <%= quantity %></p>
+            <p>Price: <%= price %></p>
+            <% } %>
+        </div>
+
+        <script src="../javascript/main.js"></script>
+    </body>
+</html>

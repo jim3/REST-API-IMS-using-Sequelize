@@ -1,0 +1,95 @@
+html,
+body {
+    font-family: monospace;
+    background-color: #272626;
+    color: #fff;
+}
+
+h1 {
+    font-weight: bold;
+}
+
+/* center `#myfrom` */
+#myform {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    width: 50%;
+    gap: 10px;
+    margin-top: 25px;
+    padding: 15px;
+    background-color: #3d3d3d;
+    border-radius: 5px;
+}
+
+fieldset {
+    margin-bottom: 25px;
+    padding: 15px;
+    background-color: #3d3d3d;
+    display: flex;
+    flex-wrap: wrap;
+    width: 50%;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+}
+
+fieldset > div {
+    margin: 10px;
+}
+
+legend {
+    text-align: center;
+    border-radius: 5px;
+}
+
+select {
+    margin-bottom: 10px;
+    padding: 5px;
+    width: 50%;
+    border: 1px solid lightgrey;
+    border-radius: 3px;
+    font-size: 16px;
+}
+
+input[type="text"],
+input[type="number"] {
+    
+    margin-bottom: 10px;
+    padding: 5px;
+    
+    width: 20%;
+    border: 1px solid lightgrey;
+    border-radius: 3px;
+    font-size: 16px;
+}
+
+input[type="submit"] {
+    font-size: 16px;
+    border-radius: 3px;
+    background-color: #e4f1fe;
+    border: 1px solid grey;
+    box-shadow: 2px 2px #999;
+    cursor: pointer;
+}
+
+input[type="submit"]:hover {
+    background-color: #fffec4;
+}
+
+#results {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 auto;
+    /* justify-content: center; */
+    gap: 10px;
+    margin-top: 25px;
+    padding: 15px;
+    background-color: #3d3d3d;
+    width: 25%;
+    border-radius: 5px;
+}
