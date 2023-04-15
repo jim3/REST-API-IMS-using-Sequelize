@@ -20,6 +20,10 @@ the future are listed at the bottom of the README.
 
 ---
 
+[Demo](https://jimmy3.xyz) (*note: not a reliable link (expect 502's) as I am always experimenting with the server, doing other things...etc..♻)
+
+---
+
 ### API Endpoints for Parts
 
 | Method | Endpoint       | Description    |
