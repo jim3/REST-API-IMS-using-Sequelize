@@ -60,39 +60,30 @@ the future are listed at the bottom of the README.
 
 #### Example of API call
 
-`${localhost}/api/parts`
+`${localhost}/api/parts` | `https://jimmy3.xyz/api/parts`
 
 #### Example of API response
 
-```json
+```
 [
-    {
-        "id": 1,
-        "partType": "hex",
-        "partName": "nuts",
-        "quantity": 100,
-        "price": 0.08,
-        "createdAt": "2023-04-07T20:16:13.575Z",
-        "updatedAt": "2023-04-07T20:16:13.575Z"
-    },
-    {
-        "id": 2,
-        "partType": "lock",
-        "partName": "washers",
-        "quantity": 50,
-        "price": 0.12,
-        "createdAt": "2023-04-07T20:37:26.849Z",
-        "updatedAt": "2023-04-07T20:37:26.849Z"
-    },
-    {
-        "id": 3,
-        "partType": "wood",
-        "partName": "screws",
-        "quantity": 60,
-        "price": 0.25,
-        "createdAt": "2023-04-07T20:37:51.159Z",
-        "updatedAt": "2023-04-08T02:15:27.530Z"
-    }
+  {
+    "id": 1,
+    "partName": "nuts",
+    "partType": "hex",
+    "quantity": 5,
+    "price": 0.09,
+    "createdAt": "2023-04-15T11:04:14.575Z",
+    "updatedAt": "2023-04-15T11:04:14.575Z"
+  },
+  {
+    "id": 2,
+    "partName": "washers",
+    "partType": "lock",
+    "quantity": 125,
+    "price": 0.13,
+    "createdAt": "2023-04-15T12:50:02.098Z",
+    "updatedAt": "2023-04-15T12:50:02.098Z"
+  }
 ]
 ```
 
