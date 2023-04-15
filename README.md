@@ -20,7 +20,7 @@ the future are listed at the bottom of the README.
 
 ---
 
-[Demo](https://jimmy3.xyz) **(*)** expect 502's
+[Demo](https://jimmy3.xyz) (*) expect `502`'s
 
 ---
 
