@@ -64,7 +64,7 @@ the future are listed at the bottom of the README.
 
 #### Example of API response
 
-```
+```json
 [
   {
     "id": 1,
