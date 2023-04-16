@@ -1,7 +1,5 @@
-const express = require("express");
-const router = express.Router();
-const Parts = require("../models/Parts");
-const Accounts = require("../models/Accounts");
+const db = require("../models/Parts");
+const accountsDB = require("../models/Accounts");
 
 // =-=-=-=-=-=-=-=-=-=-=-=-=- PARTS -=-=-=-=-=-=-=-=-=-=-=-=-= //
 
@@ -32,6 +30,8 @@ const getPart = async (req, res) => {
 const createPart = async (req, res) => {
     try {
         const { partname, quantity, price, ...product } = req.body;
+        console.log(req.body);
+
         const productType = Object.keys(product)[0];
         const productValue = product[productType];
 
@@ -102,6 +102,41 @@ const deletePart = async (req, res) => {
 
 // =-=-=-=-=-=-=-=-=-=-=-=-=- ACCOUNTS -=-=-=-=-=-=-=-=-=-=-=-=-= //
 
+const createAccount = async (req, res) => {
+    try {
+        const { email, password } = req.body;
+        const responseObj = {
+            email,
+            password,
+        };
+        await accountsDB.Accounts.create(responseObj);
+        res.json(responseObj);
 
-module.exports = router;
+        // handle error
+    } catch (err) {
+        console.error();
+        res.status(500).send("Internal Server Error");
+    }
+};
 
+const getAccounts = async (req, res) => {
+    try {
+        const accounts = await accountsDB.Accounts.findAll();
+        res.json(accounts);
+
+        // handle error
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: "Server error" });
+    }
+};
+
+module.exports = {
+    getParts,
+    getPart,
+    createPart,
+    updatePart,
+    deletePart,
+    createAccount,
+    getAccounts,
+};
