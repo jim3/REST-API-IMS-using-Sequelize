@@ -1,21 +1,12 @@
 const express = require("express");
 const router = express.Router();
+const partsController = require("../controllers/partsController");
 
 // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= //
 
 router.get("/", (req, res) => res.render("index")); // render index page
 
-router.get("/api/parts", async (req, res) => {
-    try {
-        const parts = await db.Parts.findAll();
-        res.json(parts);
-
-        // handle error
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({ error: "Server error" });
-    }
-});
+router.get("/api/parts", partsController.getParts); // get all parts
 
 // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= //
 
