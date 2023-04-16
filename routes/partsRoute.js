@@ -1,23 +1,16 @@
 const express = require("express");
 const router = express.Router();
-const db = require("../models/Parts");
-const accountsDB = require("../models/Accounts");
-
-// =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= //
-// PART ROUTES
-// =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= //
-
-router.get("/", (req, res) => {
-    res.render("index");
-});
 
 // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= //
 
-// get all parts
+router.get("/", (req, res) => res.render("index")); // render index page
+
 router.get("/api/parts", async (req, res) => {
     try {
         const parts = await db.Parts.findAll();
         res.json(parts);
+
+        // handle error
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: "Server error" });
@@ -26,11 +19,12 @@ router.get("/api/parts", async (req, res) => {
 
 // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= //
 
-// get part by id
 router.get("/api/parts/:id", async (req, res) => {
     try {
         const part = await db.Parts.findByPk(req.params.id);
         res.json(part);
+
+        // handle error
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: "Server error" });
@@ -39,7 +33,6 @@ router.get("/api/parts/:id", async (req, res) => {
 
 // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= //
 
-// create new part
 router.post("/api/parts", async (req, res) => {
     try {
         const { partname, quantity, price, ...product } = req.body;
@@ -52,13 +45,12 @@ router.post("/api/parts", async (req, res) => {
             quantity,
             price,
         };
-
-        // (*) wait for the operation to complete before rendering the template
         await db.Parts.create(responseObj);
-
         res.render("index", {
             ...responseObj,
         });
+
+        // handle error
     } catch (err) {
         console.error();
         res.status(500).send("Internal Server Error");
@@ -67,7 +59,6 @@ router.post("/api/parts", async (req, res) => {
 
 // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= //
 
-// update part
 router.put("/api/parts/:id", async (req, res) => {
     try {
         const { partname, quantity, price, ...product } = req.body;
@@ -80,14 +71,13 @@ router.put("/api/parts/:id", async (req, res) => {
             quantity,
             price,
         };
-
-        // get part to update
-        const part = await db.Parts.findByPk(req.params.id);
+        const part = await db.Parts.findByPk(req.params.id); // get part to update
 
         // update the part
         await part.update(responseObj);
-
         res.json(responseObj);
+
+        // handle error
     } catch (err) {
         console.error();
         res.status(500).send("Internal Server Error");
@@ -96,7 +86,6 @@ router.put("/api/parts/:id", async (req, res) => {
 
 // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= //
 
-// delete part
 router.delete("/api/parts/:id", async (req, res) => {
     try {
         const { partname, quantity, price, ...product } = req.body;
@@ -108,13 +97,11 @@ router.delete("/api/parts/:id", async (req, res) => {
             quantity,
             price,
         };
-
-        // (*) await update
         const part = await db.Parts.findByPk(req.params.id);
-
-        // delete part
         await part.destroy(responseObj);
         res.json(responseObj);
+
+        // handle error
     } catch (err) {
         console.error();
         res.status(500).send("Internal Server Error");
@@ -122,41 +109,36 @@ router.delete("/api/parts/:id", async (req, res) => {
 });
 
 // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= //
-// ACCOUNT ROUTES
-// =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= //
 
-// create a new account
 router.post("/api/accounts", async (req, res) => {
     try {
         const { email, password } = req.body;
-        console.log("--------> ", email, password);
         const responseObj = {
             email,
             password,
         };
-
-        // (*) await the operation before responding
         await accountsDB.Accounts.create(responseObj);
-
         res.json(responseObj);
+
+        // handle error
     } catch (err) {
         console.error();
         res.status(500).send("Internal Server Error");
     }
 });
 
-// get all accounts
+// =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= //
+
 router.get("/api/accounts", async (req, res) => {
     try {
         const accounts = await accountsDB.Accounts.findAll();
         res.json(accounts);
+
+        // handle error
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: "Server error" });
     }
 });
 
-// =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= //
-
 module.exports = router;
-
