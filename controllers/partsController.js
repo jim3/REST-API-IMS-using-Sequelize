@@ -1,5 +1,6 @@
 const db = require("../models/Parts");
 const accountsDB = require("../models/Accounts");
+const Joi = require("joi");
 
 // =-=-=-=-=-=-=-=-=-=-=-=-=- PARTS -=-=-=-=-=-=-=-=-=-=-=-=-= //
 
@@ -7,8 +8,6 @@ const getParts = async (req, res) => {
     try {
         const parts = await db.Parts.findAll();
         res.json(parts);
-
-        // handle error
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: "Server error" });
@@ -19,8 +18,6 @@ const getPart = async (req, res) => {
     try {
         const part = await db.Parts.findByPk(req.params.id);
         res.json(part);
-
-        // handle error
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: "Server error" });
@@ -38,13 +35,11 @@ const createPart = async (req, res) => {
             quantity,
             price,
         };
-
+        // combines the `build` and `save` methods
         await db.Parts.create(responseObj);
         res.render("index", {
             ...responseObj,
         });
-
-        // handle error
     } catch (err) {
         console.error();
         res.status(500).send("Internal Server Error");
@@ -63,13 +58,11 @@ const updatePart = async (req, res) => {
             quantity,
             price,
         };
-        // find part by primary key
+        // find by primary key
         const part = await db.Parts.findByPk(req.params.id);
 
         await part.update(responseObj);
         res.json(responseObj);
-
-        // handle error
     } catch (err) {
         console.error();
         res.status(500).send("Internal Server Error");
@@ -90,8 +83,6 @@ const deletePart = async (req, res) => {
         const part = await db.Parts.findByPk(req.params.id);
         await part.destroy(responseObj);
         res.json(responseObj);
-
-        // handle error
     } catch (err) {
         console.error();
         res.status(500).send("Internal Server Error");
@@ -103,26 +94,40 @@ const deletePart = async (req, res) => {
 const createAccount = async (req, res) => {
     try {
         const { email, password } = req.body;
+
+        // validate the request body first
+        const schema = Joi.object({
+            email: Joi.string().email().required(),
+            password: Joi.string()
+                .pattern(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/)
+                .required(),
+        });
+        
+        const { error } = schema.validate({ email, password });
+
+        if (error) {
+            return res.status(400).send(error.details[0].message);
+        }
+
         const responseObj = {
             email,
             password,
         };
+
         await accountsDB.Accounts.create(responseObj);
         res.json(responseObj);
-
-        // handle error
     } catch (err) {
         console.error();
         res.status(500).send("Internal Server Error");
     }
 };
 
+// =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= //
+
 const getAccounts = async (req, res) => {
     try {
         const accounts = await accountsDB.Accounts.findAll();
         res.json(accounts);
-
-        // handle error
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: "Server error" });
