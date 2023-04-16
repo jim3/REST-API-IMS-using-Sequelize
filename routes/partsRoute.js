@@ -5,7 +5,7 @@ const partsController = require("../controllers/partsController");
 // render index.ejs
 router.get("/", (req, res) => res.render("index")); 
 
-// =-=-=-=-=-=-=-=-=-=-=-=-=- Routes --> Controllers -=-=-=-=-=-=-=-=-=-=-=-=-= //
+// =-=-=-=-=-=-=-=-=-=-=-=-=- Routes->Controllers -=-=-=-=-=-=-=-=-=-=-=-=-= //
 
 router.get("/api/parts", partsController.getParts); // get all parts
 router.get("/api/parts/:id", partsController.getPart); // get a single part

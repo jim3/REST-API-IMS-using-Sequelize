@@ -30,17 +30,15 @@ const getPart = async (req, res) => {
 const createPart = async (req, res) => {
     try {
         const { partname, quantity, price, ...product } = req.body;
-        console.log(req.body);
-
         const productType = Object.keys(product)[0];
         const productValue = product[productType];
-
         const responseObj = {
             partName: partname,
             partType: productValue,
             quantity,
             price,
         };
+
         await db.Parts.create(responseObj);
         res.render("index", {
             ...responseObj,
@@ -65,9 +63,9 @@ const updatePart = async (req, res) => {
             quantity,
             price,
         };
-        const part = await db.Parts.findByPk(req.params.id); // get part to update
+        // find part by primary key
+        const part = await db.Parts.findByPk(req.params.id);
 
-        // update the part
         await part.update(responseObj);
         res.json(responseObj);
 
