@@ -95,19 +95,19 @@ const createAccount = async (req, res) => {
     try {
         const { email, password } = req.body;
 
-        // validate the request body first
-        const schema = Joi.object({
+        // - - - - - -
+        const { error } = Joi.object({
             email: Joi.string().email().required(),
             password: Joi.string()
                 .pattern(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/)
                 .required(),
-        });
-        
-        const { error } = schema.validate({ email, password });
+        }).validate(req.body);
 
         if (error) {
+            console.log(error.details[0].message);
             return res.status(400).send(error.details[0].message);
         }
+        // - - - - - -
 
         const responseObj = {
             email,
@@ -121,8 +121,6 @@ const createAccount = async (req, res) => {
         res.status(500).send("Internal Server Error");
     }
 };
-
-// =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= //
 
 const getAccounts = async (req, res) => {
     try {

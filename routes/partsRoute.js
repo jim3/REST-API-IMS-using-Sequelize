@@ -3,7 +3,7 @@ const router = express.Router();
 const partsController = require("../controllers/partsController");
 
 // render index.ejs
-router.get("/", (req, res) => res.render("index")); 
+router.get("/", (req, res) => res.render("index"));
 
 // =-=-=-=-=-=-=-=-=-=-=-=-=- Routes->Controllers -=-=-=-=-=-=-=-=-=-=-=-=-= //
 
