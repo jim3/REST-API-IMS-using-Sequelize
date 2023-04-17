@@ -90,7 +90,6 @@ the future are listed at the bottom of the README.
 ---
 
 #### Things planned to implement in the future (in no particular order)
-
 -   Add a front-end for the accounts table for Login/Logout functionality with authentication.
 -   Search for parts by part type, part name, quantity and price
 -   Sort parts by part type, part name, quantity and price
