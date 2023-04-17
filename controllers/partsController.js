@@ -2,7 +2,7 @@ const db = require("../models/Parts");
 const accountsDB = require("../models/Accounts");
 const Joi = require("joi");
 
-// =-=-=-=-=-=-=-=-=-=-=-=-=- PARTS -=-=-=-=-=-=-=-=-=-=-=-=-= //
+// =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= //
 
 const getParts = async (req, res) => {
     try {
@@ -14,6 +14,8 @@ const getParts = async (req, res) => {
     }
 };
 
+// =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= //
+
 const getPart = async (req, res) => {
     try {
         const part = await db.Parts.findByPk(req.params.id);
@@ -23,6 +25,8 @@ const getPart = async (req, res) => {
         res.status(500).json({ error: "Server error" });
     }
 };
+
+// =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= //
 
 const createPart = async (req, res) => {
     try {
@@ -46,6 +50,8 @@ const createPart = async (req, res) => {
     }
 };
 
+// =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= //
+
 const updatePart = async (req, res) => {
     try {
         const { partname, quantity, price, ...product } = req.body;
@@ -68,6 +74,8 @@ const updatePart = async (req, res) => {
         res.status(500).send("Internal Server Error");
     }
 };
+
+// =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= //
 
 const deletePart = async (req, res) => {
     try {
@@ -121,6 +129,8 @@ const createAccount = async (req, res) => {
         res.status(500).send("Internal Server Error");
     }
 };
+
+// =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= //
 
 const getAccounts = async (req, res) => {
     try {
