@@ -1,0 +1,30 @@
+<html>
+    <head>
+        <title>Express</title>
+        <link rel="stylesheet" href="/stylesheets/style.css" />
+    </head>
+    <body>
+        <h1>Login</h1>
+        <!-- =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= -->
+
+        Try accessing <a href="/restricted">/restricted</a>, then authenticate with "tj"
+        and "foobar".
+        <form method="post" action="/login">
+            <p>
+                <label for="email">Email:</label>
+                <input type="text" name="email" id="email" />
+            </p>
+
+            <p>
+                <label for="password">Password:</label>
+                <input type="text" name="password" id="password" />
+            </p>
+
+            <p>
+                <input type="submit" value="Login" />
+            </p>
+        </form>
+
+        <!-- =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= -->
+    </body>
+</html>

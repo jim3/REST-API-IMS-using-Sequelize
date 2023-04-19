@@ -1,6 +1,6 @@
 const db = require("../models/Parts");
-const accountsDB = require("../models/Accounts");
-const Joi = require("joi");
+// const accountsDB = require("../models/Accounts");
+// const Joi = require("joi");
 
 // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= //
 
@@ -66,7 +66,6 @@ const updatePart = async (req, res) => {
         };
         // find by primary key
         const part = await db.Parts.findByPk(req.params.id);
-
         await part.update(responseObj);
         res.json(responseObj);
     } catch (err) {
@@ -97,57 +96,10 @@ const deletePart = async (req, res) => {
     }
 };
 
-// =-=-=-=-=-=-=-=-=-=-=-=-=- ACCOUNTS -=-=-=-=-=-=-=-=-=-=-=-=-= //
-
-const createAccount = async (req, res) => {
-    try {
-        const { email, password } = req.body;
-
-        // - - - - - -
-        const { error } = Joi.object({
-            email: Joi.string().email().required(),
-            password: Joi.string()
-                .pattern(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/)
-                .required(),
-        }).validate(req.body);
-
-        if (error) {
-            console.log(error.details[0].message);
-            return res.status(400).send(error.details[0].message);
-        }
-        // - - - - - -
-
-        const responseObj = {
-            email,
-            password,
-        };
-
-        await accountsDB.Accounts.create(responseObj);
-        res.json(responseObj);
-    } catch (err) {
-        console.error();
-        res.status(500).send("Internal Server Error");
-    }
-};
-
-// =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= //
-
-const getAccounts = async (req, res) => {
-    try {
-        const accounts = await accountsDB.Accounts.findAll();
-        res.json(accounts);
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({ error: "Server error" });
-    }
-};
-
 module.exports = {
     getParts,
     getPart,
     createPart,
     updatePart,
     deletePart,
-    createAccount,
-    getAccounts,
 };
