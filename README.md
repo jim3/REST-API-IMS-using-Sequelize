@@ -3,7 +3,7 @@
 ### Description
 
 A RESTful API for an inventory management application for parts (fasteners). Express.js handles the routing and server-side logic. Sequelize ORM is used to interact with a SQLite3 database. 
-The focus of the project is to learn more about how to build RESTful API's. There is a front-end for the parts inventory to demonstrate how the API works. Things I plan to implement in 
+The focus of the project is to learn more about how to build RESTful API's. There is a front-end to simply demonstrate how the API works. Things I plan to implement in 
 the future are listed at the bottom of the README.
 
 
