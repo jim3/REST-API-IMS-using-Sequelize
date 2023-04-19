@@ -76,7 +76,7 @@ const login = async (req, res) => {
 
         if (passwd) {
             const token = tokenGenerator(account.email);
-
+            // todo continue authentication process...
             res.redirect("/api/accounts/orders");
         } else {
             return res.status(401).send("Invalid credentials");
