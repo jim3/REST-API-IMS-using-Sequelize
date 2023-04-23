@@ -8,7 +8,7 @@ dotenv.config();
 
 // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= //
 
-const tokenGenerator = (email) => {
+const jwtTokenGenerator = (email) => {
     const token = jwt.sign({ email }, process.env.JWT_SECRET, { expiresIn: "1h" });
     return token;
 };
@@ -18,7 +18,7 @@ const tokenGenerator = (email) => {
 const createAccount = async (req, res) => {
     try {
         const { email, password } = req.body;
-        // - - - - - -
+
         const { error } = Joi.object({
             email: Joi.string().email().required(),
             password: Joi.string()
@@ -30,7 +30,7 @@ const createAccount = async (req, res) => {
             console.log(error.details[0].message);
             return res.status(400).send(error.details[0].message);
         }
-        // - - - - - -
+
         const responseObj = {
             email,
             password,
@@ -56,7 +56,6 @@ const getAccounts = async (req, res) => {
 };
 
 // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= //
-
 const login = async (req, res) => {
     try {
         const { email, password } = req.body;
@@ -68,16 +67,20 @@ const login = async (req, res) => {
                 },
             },
         });
+
         if (!account) {
             return res.status(404).send("Account not found");
         }
 
         const passwd = await bcrypt.compare(password, account.password);
-
+        // jwt
         if (passwd) {
-            const token = tokenGenerator(account.email);
-            // todo continue authentication process...
-            res.redirect("/api/accounts/orders");
+            // generate signed jwt token
+            const token = jwtTokenGenerator(account.email);
+            // add token to header response and send
+            res.header("Authorization", `Bearer ${token}`).send({ message: "Success" });
+
+            // TODO create a `verifyToken` middleware function to check if token is valid
         } else {
             return res.status(401).send("Invalid credentials");
         }
