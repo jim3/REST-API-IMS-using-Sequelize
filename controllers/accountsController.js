@@ -19,6 +19,7 @@ const createAccount = async (req, res) => {
     try {
         const { email, password } = req.body;
 
+        // Validate email and password 
         const { error } = Joi.object({
             email: Joi.string().email().required(),
             password: Joi.string()
@@ -26,6 +27,7 @@ const createAccount = async (req, res) => {
                 .required(),
         }).validate(req.body);
 
+        // If validation fails, return 400
         if (error) {
             console.log(error.details[0].message);
             return res.status(400).send(error.details[0].message);
@@ -85,7 +87,7 @@ const login = async (req, res) => {
         if (passwd) {
             // generate signed jwt token
             const token = jwtTokenGenerator(account.email);
-            
+
             // add token to header response and send
             res.header("Authorization", `Bearer ${token}`).send({ message: "Success" });
 
