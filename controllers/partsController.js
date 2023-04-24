@@ -1,6 +1,4 @@
 const db = require("../models/Parts");
-// const accountsDB = require("../models/Accounts");
-// const Joi = require("joi");
 
 // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= //
 
@@ -18,6 +16,10 @@ const getParts = async (req, res) => {
 
 const getPart = async (req, res) => {
     try {
+        if (!req.params.id) {
+            return res.status(400).json({ error: "Please include all required fields" });
+        }
+        // find by primary key
         const part = await db.Parts.findByPk(req.params.id);
         res.json(part);
     } catch (error) {
@@ -30,6 +32,15 @@ const getPart = async (req, res) => {
 
 const createPart = async (req, res) => {
     try {
+        if (
+            !req.body.partname ||
+            !req.body.quantity ||
+            !req.body.price ||
+            !req.body.product
+        ) {
+            return res.status(400).json({ error: "Please include all required fields" });
+        }
+        // destructure req.body object
         const { partname, quantity, price, ...product } = req.body;
         const productType = Object.keys(product)[0];
         const productValue = product[productType];
@@ -54,6 +65,16 @@ const createPart = async (req, res) => {
 
 const updatePart = async (req, res) => {
     try {
+        if (
+            !req.body.partname ||
+            !req.body.quantity ||
+            !req.body.price ||
+            !req.body.product
+        ) {
+            return res.status(400).json({ error: "Please include all required fields" });
+        }
+
+        // destructure req.body object
         const { partname, quantity, price, ...product } = req.body;
         const productType = Object.keys(product)[0];
         const productValue = product[productType];
@@ -78,6 +99,16 @@ const updatePart = async (req, res) => {
 
 const deletePart = async (req, res) => {
     try {
+        if (
+            !req.body.partname ||
+            !req.body.quantity ||
+            !req.body.price ||
+            !req.body.product
+        ) {
+            return res.status(400).json({ error: "Please include all required fields" });
+        }
+
+        // destructure req.body object
         const { partname, quantity, price, ...product } = req.body;
         const productType = Object.keys(product)[0];
         const productValue = product[productType];
