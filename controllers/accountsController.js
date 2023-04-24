@@ -56,10 +56,17 @@ const getAccounts = async (req, res) => {
 };
 
 // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= //
+
 const login = async (req, res) => {
     try {
         const { email, password } = req.body;
-        // - - - - - -
+
+        // Validate email and password
+        if (!email || !password) {
+            return res.status(400).send("Missing fields");
+        }
+
+        // Check if account exists
         const account = await accountsDB.Accounts.findOne({
             where: {
                 email: {
@@ -68,15 +75,17 @@ const login = async (req, res) => {
             },
         });
 
+        // If account doesn't exist, return 404
         if (!account) {
             return res.status(404).send("Account not found");
         }
 
         const passwd = await bcrypt.compare(password, account.password);
-        // jwt
+
         if (passwd) {
             // generate signed jwt token
             const token = jwtTokenGenerator(account.email);
+            
             // add token to header response and send
             res.header("Authorization", `Bearer ${token}`).send({ message: "Success" });
 
