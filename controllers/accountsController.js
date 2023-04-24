@@ -19,7 +19,7 @@ const createAccount = async (req, res) => {
     try {
         const { email, password } = req.body;
 
-        // Validate email and password 
+        // Validate email and password
         const { error } = Joi.object({
             email: Joi.string().email().required(),
             password: Joi.string()
@@ -91,8 +91,7 @@ const login = async (req, res) => {
             // add token to header response and send
             res.header("Authorization", `Bearer ${token}`).send({ message: "Success" });
 
-            // TODO create a "verifytoken" middleware function to check if token is valid 
-
+            // TODO create a "verifytoken" middleware function to check if token is valid
         } else {
             return res.status(401).send("Invalid credentials");
         }
