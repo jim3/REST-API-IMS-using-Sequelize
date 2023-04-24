@@ -1,7 +1,5 @@
 const db = require("../models/Parts");
 
-// =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= //
-
 const getParts = async (req, res) => {
     try {
         const parts = await db.Parts.findAll();
@@ -126,6 +124,8 @@ const deletePart = async (req, res) => {
         res.status(500).send("Internal Server Error");
     }
 };
+
+// =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= //
 
 module.exports = {
     getParts,
