@@ -2,8 +2,8 @@ const accountsDB = require("../models/Accounts");
 const Joi = require("joi");
 const bcrypt = require("bcrypt");
 const { Op } = require("sequelize");
-const dotenv = require("dotenv");
 const jwt = require("jsonwebtoken");
+const dotenv = require("dotenv");
 dotenv.config();
 
 // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= //
@@ -77,18 +77,20 @@ const login = async (req, res) => {
             },
         });
 
-        // If account doesn't exist, return 404
+        // error handling
         if (!account) {
             return res.status(404).send("Account not found");
         }
 
+        // verify password with bcrypt
         const passwd = await bcrypt.compare(password, account.password);
 
+        // checks if password is valid
         if (passwd) {
-            // generate signed jwt token
+            // takes email value from `req` & provides a token as the `res` to client
             const token = jwtTokenGenerator(account.email);
 
-            // add token to header response and send
+            // add token to header response and send to client
             res.header("Authorization", `Bearer ${token}`).send({ message: "Success" });
         } else {
             return res.status(401).send("Invalid credentials");
@@ -102,7 +104,7 @@ const login = async (req, res) => {
 
 // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= //
 
-const getOrders = async (req, res) => {
+const getOrders = (req, res) => {
     try {
         res.render("orders");
     } catch (err) {
