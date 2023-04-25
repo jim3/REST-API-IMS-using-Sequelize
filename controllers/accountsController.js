@@ -90,8 +90,6 @@ const login = async (req, res) => {
 
             // add token to header response and send
             res.header("Authorization", `Bearer ${token}`).send({ message: "Success" });
-
-            // TODO create a "verifytoken" middleware function to check if token is valid
         } else {
             return res.status(401).send("Invalid credentials");
         }
