@@ -4,7 +4,7 @@ const Sequelize = require("sequelize");
 const sequelize = new Sequelize({
   dialect: "sqlite",
   storage: "parts.db",
-  logging: (...msg) => console.log(msg),
+  loggger: console.log,
   define: {
     freezeTableName: true,
   },
