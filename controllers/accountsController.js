@@ -89,6 +89,7 @@ const login = async (req, res) => {
         if (passwd) {
             // takes email value from `req` & provides a token as the `res` to client
             const token = jwtTokenGenerator(account.email);
+            console.log("THIS IS THE GENERATED TOKEN --->", token);
 
             // add token to header response and send to client
             res.header("Authorization", `Bearer ${token}`).send({ message: "Success" });
@@ -104,9 +105,9 @@ const login = async (req, res) => {
 
 // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= //
 
-const getOrders = (req, res) => {
+const protected = (req, res) => {
     try {
-        res.render("orders");
+        res.send("You are logged in");
     } catch (err) {
         console.error(err);
         res.status(500).send("Internal Server Error");
@@ -117,5 +118,5 @@ module.exports = {
     createAccount,
     getAccounts,
     login,
-    getOrders,
+    protected,
 };
