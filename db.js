@@ -2,12 +2,12 @@ const Sequelize = require("sequelize");
 
 // create the database connection
 const sequelize = new Sequelize({
-  dialect: "sqlite",
-  storage: "parts.db",
-  loggger: console.log,
-  define: {
-    freezeTableName: true,
-  },
+    dialect: "sqlite",
+    storage: "parts.db",
+    loggger: console.log,
+    define: {
+        freezeTableName: true,
+    },
 });
 
 // test the connection

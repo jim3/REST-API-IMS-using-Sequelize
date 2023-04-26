@@ -9,7 +9,7 @@ dotenv.config();
 // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= //
 
 const jwtTokenGenerator = (email) => {
-    const token = jwt.sign({ email }, process.env.JWT_SECRET, { expiresIn: "1h" });
+    const token = jwt.sign({ email }, process.env.JWT_SECRET);
     return token;
 };
 
@@ -19,13 +19,14 @@ const createAccount = async (req, res) => {
     try {
         const { email, password } = req.body;
 
-        // Validate email and password
-        const { error } = Joi.object({
+        // define schema for validation
+        const schema = Joi.object({
             email: Joi.string().email().required(),
-            password: Joi.string()
-                .pattern(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/)
-                .required(),
-        }).validate(req.body);
+            password: Joi.string().pattern(new RegExp("^[a-zA-Z0-9]{3,30}$")).required(),
+        });
+
+        // validate the req.body against the defined schema
+        const { error } = schema.validate(req.body);
 
         // If validation fails, return 400
         if (error) {
@@ -88,8 +89,7 @@ const login = async (req, res) => {
         // checks if password is valid
         if (passwd) {
             // takes email value from `req` & provides a token as the `res` to client
-            const token = jwtTokenGenerator(account.email);
-            console.log("THIS IS THE GENERATED TOKEN --->", token);
+            const token = jwtTokenGenerator(account.email); // -->
 
             // add token to header response and send to client
             res.header("Authorization", `Bearer ${token}`).send({ message: "Success" });
@@ -113,6 +113,8 @@ const protected = (req, res) => {
         res.status(500).send("Internal Server Error");
     }
 };
+
+// =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= //
 
 module.exports = {
     createAccount,
