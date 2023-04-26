@@ -25,7 +25,7 @@ const createAccount = async (req, res) => {
             password: Joi.string().pattern(new RegExp("^[a-zA-Z0-9]{3,30}$")).required(),
         });
 
-        // validate the req.body against the defined schema
+        // validate the req.body *against* the defined schema
         const { error } = schema.validate(req.body);
 
         // If validation fails, return 400
