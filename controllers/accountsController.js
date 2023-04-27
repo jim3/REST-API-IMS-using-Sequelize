@@ -64,7 +64,6 @@ const login = async (req, res) => {
     try {
         const { email, password } = req.body;
 
-        // Validate email and password
         if (!email || !password) {
             return res.status(400).send("Missing fields");
         }
@@ -78,25 +77,23 @@ const login = async (req, res) => {
             },
         });
 
-        // error handling
         if (!account) {
             return res.status(404).send("Account not found");
         }
 
-        // verify password with bcrypt
+        // verify password
         const passwd = await bcrypt.compare(password, account.password);
 
-        // checks if password is valid
+        // check if password is valid and sign a jwt token
         if (passwd) {
             // takes email value from `req` & provides a token as the `res` to client
-            const token = jwtTokenGenerator(account.email); // -->
+            const token = jwtTokenGenerator(account.email);
 
             // add token to header response and send to client
             res.header("Authorization", `Bearer ${token}`).send({ message: "Success" });
         } else {
             return res.status(401).send("Invalid credentials");
         }
-        // - - - - - -
     } catch (err) {
         console.error(err);
         res.status(500).send("Internal Server Error");
