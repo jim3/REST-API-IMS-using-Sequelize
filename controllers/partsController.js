@@ -30,14 +30,6 @@ const getPart = async (req, res) => {
 
 const createPart = async (req, res) => {
     try {
-        if (
-            !req.body.partname ||
-            !req.body.quantity ||
-            !req.body.price ||
-            !req.body.product
-        ) {
-            return res.status(400).json({ error: "Please include all required fields" });
-        }
         // destructure req.body object
         const { partname, quantity, price, ...product } = req.body;
         const productType = Object.keys(product)[0];
@@ -63,15 +55,6 @@ const createPart = async (req, res) => {
 
 const updatePart = async (req, res) => {
     try {
-        if (
-            !req.body.partname ||
-            !req.body.quantity ||
-            !req.body.price ||
-            !req.body.product
-        ) {
-            return res.status(400).json({ error: "Please include all required fields" });
-        }
-
         // destructure req.body object
         const { partname, quantity, price, ...product } = req.body;
         const productType = Object.keys(product)[0];
@@ -97,15 +80,6 @@ const updatePart = async (req, res) => {
 
 const deletePart = async (req, res) => {
     try {
-        if (
-            !req.body.partname ||
-            !req.body.quantity ||
-            !req.body.price ||
-            !req.body.product
-        ) {
-            return res.status(400).json({ error: "Please include all required fields" });
-        }
-
         // destructure req.body object
         const { partname, quantity, price, ...product } = req.body;
         const productType = Object.keys(product)[0];
